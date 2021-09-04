@@ -1,0 +1,1 @@
+An attempt of implementing the language as described in SPJ's Implementing Functional Language in C++
