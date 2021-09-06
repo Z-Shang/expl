@@ -23,6 +23,10 @@ struct NSC {
 template <typename A>
 using Node = std::variant<NAp, NNum, NSC<A>>;
 
+auto dataNodeP = []<typename A>(Node<A> n) {
+  return std::holds_alternative<utils::NNum>(n);
+};
+
 template <typename A>
 struct Heap {
   size_t nelem;
@@ -33,6 +37,11 @@ struct Heap {
     _store.emplace_back(name, args, body);
     return {name, _store.size()};
   }
+
+  bool empty() const noexcept { return _store.empty(); }
+  size_t size() const noexcept { return _store.size(); }
+
+  auto lookup(auto addr) const { return _store[addr]; }
 };
 
 }  // namespace utils

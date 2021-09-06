@@ -1,5 +1,6 @@
 #pragma once
 
+#include <functional>
 #include <stack>
 #include <unordered_map>
 
@@ -23,6 +24,12 @@ struct TiState {
   TiHeap_t _heap;
   TiGlobal_t _global;
   TiStat _stat;
+};
+
+auto applyToStats = []<typename A>(std::function<TiStat(TiStat)> f,
+                                   TiState<A> state) -> TiState<A> {
+  auto& [s, d, h, g, st] = state;
+  return {s, d, h, g, f(st)};
 };
 
 template <typename A>
